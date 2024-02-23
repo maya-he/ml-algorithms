@@ -17,9 +17,6 @@
 # print(prediction)
 
 
-
-
-
 from sklearn.datasets import load_breast_cancer
 from sklearn import svm
 from sklearn.model_selection import train_test_split
@@ -39,19 +36,4 @@ print(y_pred)
 
 print(classification_report(y_test,y_pred))
 print(confusion_matrix(y_test,y_pred))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
