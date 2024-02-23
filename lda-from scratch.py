@@ -2,28 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
 
-# load iris data set
-
 data = datasets.load_iris()
 X =data.data
 y =  data.target
 
-# Project the data onto the 2 primary principal components by Minimize the Inter-Class Variability
-# and Maximize the Distance Between the Mean of Classes:
-
-
 def LDA(data,target, n_components):
 
-    n_components = n_components  #number of primary components we need to keep
+    n_components = n_components  
     eigVectors = []              #store the choosen maxmimum eigen vectors
 
-    n_features = data.shape[1]  #store number of features 
+    n_features = data.shape[1]  
     c_labels = np.unique(y) #get the classes of the data set in the unique form 
 
 
     mean_overall = np.mean(data, axis=0)   
     SW = np.zeros((n_features, n_features))   # declare 4*4 matrix 
-    SB = np.zeros((n_features, n_features))   # declare 4*4 matrix 
+    SB = np.zeros((n_features, n_features))   
 
     for c in c_labels:
 
@@ -34,13 +28,11 @@ def LDA(data,target, n_components):
         # SW = sum((X_class - mean_X_c)^2 )
         SW += (X_c - mean_c).T.dot((X_c - mean_c))
 
-        nS_class = X_c.shape[0]   #number of samples in the class
+        nS_class = X_c.shape[0]   
         mean_diff = (mean_c - mean_overall).reshape(n_features, 1)
         #calculate between class scatter
         # SB = sum( nS_class * (mean_X_class -total mean)^2 )
         SB += nS_class * (mean_diff).dot(mean_diff.T)  
-
-    # Determine SW^-1 * SB
 
     matrix= np.linalg.inv(SW).dot(SB)
 
@@ -48,19 +40,13 @@ def LDA(data,target, n_components):
 
     eigenvalues, eigenvectors = np.linalg.eig(matrix)
 
-    # -> eigenvector v = [:,i] column vector, transpose for easier calculations
-    # sort eigenvalues high to low
 
     eigenvectors = eigenvectors.T
     idxs = np.argsort(abs(eigenvalues))[::-1] #sort descending to get the maximum 
-    # get maximum eigen vectors depending on eigen values 
     eigenvectors = eigenvectors[idxs]
 
     # store first n eigenvectors
     eigVectors = eigenvectors[0 : n_components]
-
-    # project data
-    # return the new set of data
     return np.dot(X, eigVectors.T)
 
 
