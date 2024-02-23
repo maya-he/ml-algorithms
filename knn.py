@@ -1,12 +1,3 @@
-# import pandas as pd 
-
-# iris = pd.read_csv('iris.csv')
-
-# # print(iris.describe)
-
-# x = iris.drop('variety', axis=1)
-# y = iris['variety']
-
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
