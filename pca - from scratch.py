@@ -1,22 +1,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
-
-# Project the data onto the 2 primary principal components
-
-# load the eris dataset  
+ 
 data = datasets.load_iris()
 
 X = data.data  
 y = data.target
-# this code aims to reduce the number of features from 4 into 2 primary features 
 
 def PCA( data,number_pc):
     
     final_eVector = []   #store the choosen maxmimum eigen vectors
     number_pc = number_pc   #number of primary components we need to keep
-
-    # evaluate the mean of each feature 
     mean = np.mean(data, axis=0)
     X = data - mean
 
@@ -27,9 +21,6 @@ def PCA( data,number_pc):
     # eigenvalues, eigenvectors
     # e_val= [cm-yi]=0   e_vec = [cm-yi]u=0 
     eigenvalues, eigenvectors = np.linalg.eig(cov)
-
-    # -> eigenvector transpose for easier calculations
-    # sort eigenvectors
     
     eigenvectors = eigenvectors.T
 
