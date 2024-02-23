@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from sklearn import datasets
  
 data = datasets.load_iris()
-
 X = data.data  
 y = data.target
 
